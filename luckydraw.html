@@ -1,0 +1,186 @@
+<html>
+<head>
+    <title>Lucky Draw</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/luckydraw.css" />
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<canvas class="confetti" id="canvas"></canvas>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Simple Lucky Draw</h1>
+        <p class="lead mb-4">Select name list file to start</p>
+        <button type="button" class="btn btn-outline-secondary btn-md px-4 gap-3" onclick="loadParticipants()">Select File...</button>
+        <p class="lead my-4" id="msgLoadStatus">&nbsp;</p>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg w-75">
+        <div class="p-3 p-lg-5 pt-lg-3 text-center">
+            <h1 class="display-6 fw-bold">11th - 15th Prize</h1>
+            <div class="row flex-lg-row align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="img/prize11-15.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="400" loading="lazy">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-4 fw-bold">Remax 1000mAh Powerbank</h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col col-6 p-2 display-5 winner-name" id="prize11">&nbsp;</div>
+                            <div class="col col-6 p-2 display-5 winner-name" id="prize12">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-6 p-2 display-5 winner-name" id="prize13">&nbsp;</div>
+                            <div class="col col-6 p-2 display-5 winner-name" id="prize14">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-12 p-2 display-5 winner-name" id="prize15">&nbsp;</div>
+                            <div class="d-grid gap-2 d-md-block"><button type="button" class="btn btn-primary btn-lg px-4" onclick="this.style.visibility='hidden'; drawWinner(11,15,60)">Draw</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg w-75">
+        <div class="p-3 p-lg-5 pt-lg-3 text-center">
+            <h1 class="display-6 fw-bold">6th - 10th Prize</h1>
+            <div class="row flex-lg-row align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="img/prize6-10.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="400" loading="lazy">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-4 fw-bold">Xiaomi Mi Wireless Earbuds Basic 2</h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col col-6 p-2 display-5 winner-name" id="prize6">&nbsp;</div>
+                            <div class="col col-6 p-2 display-5 winner-name" id="prize7">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-6 p-2 display-5 winner-name" id="prize8">&nbsp;</div>
+                            <div class="col col-6 p-2 display-5 winner-name" id="prize9">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-12 p-2 display-5 winner-name" id="prize10">&nbsp;</div>
+                            <div class="d-grid gap-2 d-md-block"><button type="button" class="btn btn-primary btn-lg px-4" onclick="this.style.visibility='hidden'; drawWinner(6,10,60)">Draw</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg w-75">
+        <div class="p-3 p-lg-5 pt-lg-3 text-center">
+            <h1 class="display-6 fw-bold">5th Prize</h1>
+            <div class="row flex-lg-row align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="img/prize5.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="400" loading="lazy">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-4 fw-bold">Mayer 3.8L Air Fryer</h2>
+                    <p class="display-4 lead winner-name" id="prize5">&nbsp;</p>
+                    <button type="button" class="btn btn-primary btn-lg px-4" onclick="this.style.visibility='hidden'; drawWinner(5,5,80)">Draw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg w-75">
+        <div class="p-3 p-lg-5 pt-lg-3 text-center">
+            <h1 class="display-6 fw-bold">4th Prize</h1>
+            <div class="row flex-lg-row align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="img/prize4.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="400" loading="lazy">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-4 fw-bold">Philips Bluetooth Speaker with mic</h2>
+                    <p class="display-4 lead winner-name" id="prize4">&nbsp;</p>
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3" onclick="this.style.visibility='hidden'; drawWinner(4,4,80)">Draw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg w-75">
+        <div class="p-3 p-lg-5 pt-lg-3 text-center">
+            <h1 class="display-6 fw-bold">3rd Prize</h1>
+            <div class="row flex-lg-row align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="img/prize3.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="400" loading="lazy">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-4 fw-bold">FitBit VERSA 3</h2>
+                    <p class="display-4 lead winner-name" id="prize3">&nbsp;</p>
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3" onclick="this.style.visibility='hidden'; drawWinner(3,3,100)">Draw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg w-75">
+        <div class="p-3 p-lg-5 pt-lg-3 text-center">
+            <h1 class="display-6 fw-bold">2nd Prize</h1>
+            <div class="row flex-lg-row align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="img/prize2.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="400" loading="lazy">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-4 fw-bold">Nintendo Switch Console</h2>
+                    <p class="display-4 lead winner-name" id="prize2">&nbsp;</p>
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3" onclick="this.style.visibility='hidden'; drawWinner(2,2,100)">Draw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg w-75">
+        <div class="p-3 p-lg-5 pt-lg-3 text-center">
+            <h1 class="display-6 fw-bold">1st Prize</h1>
+            <div class="row flex-lg-row align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="img/prize1.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="400" loading="lazy">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-4 fw-bold">Samsung 55" TV</h2>
+                    <p class="display-4 lead winner-name" id="prize1">&nbsp;</p>
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3" onclick="this.style.visibility='hidden'; drawWinner(1,1,120)">Draw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="py-5 text-center">
+        <h1 class="display-5 fw-bold">Congratulations to all winners!</h1>
+    </div>
+</section>
+
+<section class="d-flex justify-content-center align-items-center">
+    <div class="py-5 text-center">
+        <p class="lead mb-4">Save winner list to file</p>
+        <button type="button" class="btn btn-outline-secondary btn-md px-4 gap-3" onclick="saveWinners()">Select File...</button>
+    </div>
+</section>
+
+<script type="text/javascript" src="js/luckydraw.js"></script>
+</body>
+</html>
