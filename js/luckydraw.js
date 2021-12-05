@@ -242,7 +242,7 @@ function removeNames(name) {
     }
 }
 
-async function drawWinner(prizeFrom, prizeTo, duration) {
+async function drawWinner(duration, prizeFrom, prizeTo = prizeFrom) {
     rouletteEffect.play();
 
     // draw lucky winners randomly
