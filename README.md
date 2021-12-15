@@ -1,5 +1,5 @@
 # Simple Lucky Draw
-Simple lucky draw HTML page I cobbled together using code from various sources.
+Single page lucky draw using Javascript and Bootstrap CSS.
 
 
 ## Features
@@ -22,8 +22,12 @@ Sample input: `sample-data\names.csv`
 Sample output: `sample-data\winners.txt`
 
 
-## Code credits
-+ Name animation and random draw code - http://jsfiddle.net/yckelvin/6VA5e/
-+ File handler (open and save) - https://github.com/GoogleChromeLabs/text-editor/blob/main/src/inline-scripts/fs-helpers.js
+## Code references
++ Random name effect - http://jsfiddle.net/yckelvin/6VA5e/
++ File handler - https://github.com/GoogleChromeLabs/text-editor/blob/main/src/inline-scripts/fs-helpers.js
 + Confetti effect - https://www.codehim.com/animation-effects/javascript-confetti-explosion-effect/
 + Bootstrap Heroes layout with shadows - https://getbootstrap.com/docs/5.1/examples/heroes/
+
+## Sound effects
++ Roulette/click effect - https://freesound.org/people/jrayhartley/sounds/514303/
++ Pop and cheer effect - https://freesound.org/people/AmishRob/sounds/214989/
