@@ -4,6 +4,10 @@ html {
 
 body {
     scroll-snap-type: y mandatory;
+    background-image: url('../res/background.jpg');
+    background-color: antiquewhite;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 section {
@@ -23,6 +27,8 @@ section {
 
 .winner-name {
     color: blue;
+    min-width: 20ch;
+    min-height: 2.5em;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
