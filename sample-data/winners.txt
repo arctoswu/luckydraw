@@ -1,7 +1,11 @@
-Prize,Username
-prize4,Person 204
-prize5,Person 284
-prize6,Person 175
-prize3,Person 579
-prize2,Person 739
-prize1,Person 340
+Prize,Name
+prize1,Anthony Edward "Tony" Stark
+prize10,Natalia Alianovna "Natasha" Romanoff
+prize2,Col. James Rupert "Rhodey" Rhodes
+prize3,Nicholas Joseph "Nick" Fury
+prize4,Rocket Raccoon
+prize5,Samuel Thomas "Sam" Wilson
+prize6,Wanda Maximoff
+prize7,Scott Edward Harris Lang
+prize8,Clinton Francis "Clint" Barton
+prize9,Nebula
