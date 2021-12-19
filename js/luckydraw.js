@@ -17,7 +17,7 @@ function sleep(ms) {
 }
 
 async function renderNameRoulette(nameElement, duration) {
-    for (var i=0; i<duration; i++) {
+    for (var i = 0; i < duration; i++) {
         var r = getRandomInt(0,lookupNamesTBL.length-1);
         nameElement.innerHTML = lookupNamesTBL.vlookup(r);
         await sleep(100);
@@ -33,10 +33,37 @@ async function renderNameRoulette(nameElement, duration) {
 
 async function readFile() {
     let fileHandle;
-    [fileHandle] = await window.showOpenFilePicker();
+
+    // For Chrome 86 and later...
+    if ('showOpenFilePicker' in window) {
+        [fileHandle] = await window.showOpenFilePicker();
+    }
+    // For Chrome 85 and earlier...
+    else {
+        fileHandle = window.chooseFileSystemEntries();
+    }
+
+    if (!fileHandle) {
+        console.log("Error getting file handle!");
+        return;
+    }
+
     const file = await fileHandle.getFile();
-    const contents = await file.text();
-    return contents
+    if (file.text) {
+        return file.text();
+    }
+    return _readFileLegacy(file);
+}
+
+function _readFileLegacy(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.addEventListener('loadend', (e) => {
+            const text = e.srcElement.result;
+            resolve(text);
+        });
+        reader.readAsText(file);
+    });
 }
 
 // Create a handle to a new (text) file on the local file system.
@@ -218,14 +245,12 @@ rouletteEffect.loop = true;
 var cheerEffect = new Audio('res/pop-cheer.mp3');
 
 async function loadParticipants() {
-    // Assumes text file to contain list of participants in 'ID,Username' format
+    // Assumes text file to contain list of participants names without header row
     var contents = await readFile();
     var lines = contents.split(/\r\n|\n/);
-    var headers = lines[0].split(',');
-    for (var i = 1; i < lines.length; i++) {
-        var data = lines[i].split(',');
-        if (data.length == headers.length) {
-            lookupNamesTBL.push(data[1]);
+    for (var i = 0; i < lines.length; i++) {
+        if (lines[i].length > 0) {
+            lookupNamesTBL.push(lines[i]);
         }
     }
 
@@ -242,13 +267,15 @@ function removeNames(name) {
     }
 }
 
-async function drawWinner(duration, prizeFrom, prizeTo = prizeFrom) {
+async function drawWinner(drawButton, duration = 100) {
     rouletteEffect.play();
+    drawButton.style.visibility = 'hidden';
 
-    // draw lucky winners randomly
-    for (var i=prizeFrom; i<=prizeTo; i++) {
-        var winner = await renderNameRoulette(document.getElementById('prize' + i), duration);
-        document.getElementById('prize' + i).style.color = "black";
+    // draw winner randomly
+    nameTags = drawButton.parentNode.getElementsByClassName("winner-name");
+    for (var i = 0; i < nameTags.length; i++) {
+        var winner = await renderNameRoulette(nameTags[i], duration);
+        nameTags[i].style.color = "black";
 
         // Remove winner from list to prevent repeated winners
         removeNames(winner);
@@ -258,20 +285,30 @@ async function drawWinner(duration, prizeFrom, prizeTo = prizeFrom) {
     // add sound effect and confetti for winner(s)
     cheerEffect.currentTime = 0;
     cheerEffect.play();
-    var matches = $("section:has(#prize" + prizeFrom + ")");
-    $("#canvas").prependTo(matches[0]);
+    var prizeSection = drawButton.closest("section");
+    prizeSection.prepend(document.getElementById("canvas"));
     initConfetti();
 }
 
 async function saveWinners() {
-    var contents = "Prize,Username\n";
     var winners = document.getElementsByClassName("winner-name");
-
-    for (var i=0; i<winners.length; i++) {
-        contents += winners[i].id + ",";
-        contents += winners[i].innerHTML;
-        contents += "\n";
+    
+    var listitems = [];
+    for (i = 0; i < winners.length; i++) {
+        listitems.push(winners.item(i));
     }
 
+    listitems.sort(function(a, b) {
+        var compA = a.getAttribute("id").toUpperCase();
+        var compB = b.getAttribute("id").toUpperCase();
+        return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+    });
+
+    var contents = "Prize,Name\n";
+    for (var i = 0; i < listitems.length; i++) {
+        contents += listitems[i].getAttribute("id") + ",";
+        contents += listitems[i].innerHTML;
+        contents += "\n";
+    }
     await writeFile(contents);
 }
